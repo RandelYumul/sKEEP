@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:skeep/pages/login_page.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int selectedIndex;
+  final Function(int)? onItemTapped;
 
-  const CustomBottomNavBar({super.key, this.selectedIndex = 0});
+  const CustomBottomNavBar({
+    super.key, 
+    this.selectedIndex = 0,
+    this.onItemTapped,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +42,9 @@ class CustomBottomNavBar extends StatelessWidget {
                   color: selectedIndex == 0 ? Colors.purple : Colors.grey,
                   iconSize: 30,
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
-                    );
+                    if (selectedIndex != 0 && onItemTapped != null) {
+                      onItemTapped!(0);
+                    }
                   },
                 ),
                 const Text('Home', style: TextStyle(fontSize: 12)),
@@ -58,10 +61,9 @@ class CustomBottomNavBar extends StatelessWidget {
                   color: selectedIndex == 1 ? Colors.purple : Colors.grey,
                   iconSize: 30,
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
-                    );
+                    if (selectedIndex != 1 && onItemTapped != null) {
+                      onItemTapped!(1);
+                    }
                   },
                 ),
                 const Text('Inventory', style: TextStyle(fontSize: 12)),
@@ -82,9 +84,21 @@ class CustomBottomNavBar extends StatelessWidget {
                 icon: const Icon(Icons.add, color: Colors.white),
                 iconSize: 35,
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  // Show a dialog or navigate to add item page
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Add Item'),
+                        content: const Text('Add item functionality not implemented yet'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
                   );
                 },
               ),
@@ -100,10 +114,9 @@ class CustomBottomNavBar extends StatelessWidget {
                   color: selectedIndex == 2 ? Colors.purple : Colors.grey,
                   iconSize: 30,
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
-                    );
+                    if (selectedIndex != 2 && onItemTapped != null) {
+                      onItemTapped!(2);
+                    }
                   },
                 ),
                 const Text('History', style: TextStyle(fontSize: 12)),
@@ -120,10 +133,9 @@ class CustomBottomNavBar extends StatelessWidget {
                   color: selectedIndex == 3 ? Colors.purple : Colors.grey,
                   iconSize: 30,
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
-                    );
+                    if (selectedIndex != 3 && onItemTapped != null) {
+                      onItemTapped!(3);
+                    }
                   },
                 ),
                 const Text('Profile', style: TextStyle(fontSize: 12)),
