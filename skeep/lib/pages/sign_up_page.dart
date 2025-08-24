@@ -135,7 +135,10 @@ class SignUpPage extends StatelessWidget{
                     height: 40,
                     child: ElevatedButton(
                       onPressed: () {
-                        print('Login button pressed');
+                        Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => LoginPage()),
+                              );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF311A60),
@@ -144,7 +147,7 @@ class SignUpPage extends StatelessWidget{
                         ),
                       ),
                       child: const Text(
-                        'LOGIN',
+                        'SIGN UP',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,

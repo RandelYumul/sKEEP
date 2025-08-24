@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skeep/pages/home_page.dart';
 import 'sign_up_page.dart';
 
 class LoginPage extends StatelessWidget{
@@ -106,6 +107,9 @@ class LoginPage extends StatelessWidget{
                     child: ElevatedButton(
                       onPressed: () {
                         print('Login button pressed');
+                        Navigator.push(
+                          context, 
+                          MaterialPageRoute(builder: (context) => HomePage()));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF311A60),
