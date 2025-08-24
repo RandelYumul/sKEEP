@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import '../profile_page.dart';
+import '../home_page.dart';
+import '../login_page.dart';
+import '../inventory_page.dart';
+import '../history_page.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int selectedIndex;
-  final Function(int)? onItemTapped;
 
   const CustomBottomNavBar({
-    super.key, 
+    super.key,
     this.selectedIndex = 0,
-    this.onItemTapped,
   });
 
   @override
@@ -15,7 +18,7 @@ class CustomBottomNavBar extends StatelessWidget {
     return Container(
       height: 80,
       decoration: BoxDecoration(
-        color: Color(0xFFF7F5FA),
+        color: const Color(0xFFF7F5FA).withOpacity(0.8),
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
@@ -25,13 +28,14 @@ class CustomBottomNavBar extends StatelessWidget {
             color: Colors.black.withOpacity(0.2),
             spreadRadius: 2,
             blurRadius: 8,
-            offset: Offset(0, -4),
+            offset: const Offset(0, -4),
           ),
         ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // Home
           Padding(
             padding: const EdgeInsets.only(right: 20),
             child: Column(
@@ -42,15 +46,21 @@ class CustomBottomNavBar extends StatelessWidget {
                   color: selectedIndex == 0 ? Colors.purple : Colors.grey,
                   iconSize: 30,
                   onPressed: () {
-                    if (selectedIndex != 0 && onItemTapped != null) {
-                      onItemTapped!(0);
-                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
                   },
                 ),
-                const Text('Home', style: TextStyle(fontSize: 12)),
+                const Text(
+                  'Home',
+                  style: TextStyle(fontSize: 12),
+                ),
               ],
             ),
           ),
+
+          // Inventory
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: Column(
@@ -61,15 +71,21 @@ class CustomBottomNavBar extends StatelessWidget {
                   color: selectedIndex == 1 ? Colors.purple : Colors.grey,
                   iconSize: 30,
                   onPressed: () {
-                    if (selectedIndex != 1 && onItemTapped != null) {
-                      onItemTapped!(1);
-                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => InventoryPage()),
+                    );
                   },
                 ),
-                const Text('Inventory', style: TextStyle(fontSize: 12)),
+                const Text(
+                  'Inventory',
+                  style: TextStyle(fontSize: 12),
+                ),
               ],
             ),
           ),
+
+          // Center Add Button
           Transform.translate(
             offset: const Offset(0, -35),
             child: Container(
@@ -78,32 +94,28 @@ class CustomBottomNavBar extends StatelessWidget {
               decoration: BoxDecoration(
                 color: const Color(0xFF8D47FF),
                 shape: BoxShape.circle,
-                border: Border.all(color: Color(0xFFF7F5FA), width: 10),
+                border: Border.all(
+                  color: const Color(0xFFF7F5FA),
+                  width: 10,
+                ),
               ),
               child: IconButton(
-                icon: const Icon(Icons.add, color: Colors.white),
+                icon: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
                 iconSize: 35,
                 onPressed: () {
-                  // Show a dialog or navigate to add item page
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('Add Item'),
-                        content: const Text('Add item functionality not implemented yet'),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.of(context).pop(),
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      );
-                    },
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
                   );
                 },
               ),
             ),
           ),
+
+          // History
           Padding(
             padding: const EdgeInsets.only(left: 10),
             child: Column(
@@ -114,15 +126,21 @@ class CustomBottomNavBar extends StatelessWidget {
                   color: selectedIndex == 2 ? Colors.purple : Colors.grey,
                   iconSize: 30,
                   onPressed: () {
-                    if (selectedIndex != 2 && onItemTapped != null) {
-                      onItemTapped!(2);
-                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HistoryPage()),
+                    );
                   },
                 ),
-                const Text('History', style: TextStyle(fontSize: 12)),
+                const Text(
+                  'History',
+                  style: TextStyle(fontSize: 12),
+                ),
               ],
             ),
           ),
+
+          // Profile
           Padding(
             padding: const EdgeInsets.only(left: 20),
             child: Column(
@@ -133,12 +151,16 @@ class CustomBottomNavBar extends StatelessWidget {
                   color: selectedIndex == 3 ? Colors.purple : Colors.grey,
                   iconSize: 30,
                   onPressed: () {
-                    if (selectedIndex != 3 && onItemTapped != null) {
-                      onItemTapped!(3);
-                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProfilePage()),
+                    );
                   },
                 ),
-                const Text('Profile', style: TextStyle(fontSize: 12)),
+                const Text(
+                  'Profile',
+                  style: TextStyle(fontSize: 12),
+                ),
               ],
             ),
           ),

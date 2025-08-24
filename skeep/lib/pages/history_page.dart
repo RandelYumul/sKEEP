@@ -59,7 +59,7 @@ class _HistoryPageState extends State<HistoryPage> {
       ),
 
       // Bottom Navigation Bar
-      bottomNavigationBar: const CustomBottomNavBar(selectedIndex: 1),
+      bottomNavigationBar: const CustomBottomNavBar(selectedIndex: 2),
     );
   }
 }
