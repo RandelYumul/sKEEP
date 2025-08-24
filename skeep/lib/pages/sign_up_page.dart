@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'sign_up_page.dart';
+import 'package:skeep/pages/login_page.dart';
 
-class LoginPage extends StatelessWidget{
-  const LoginPage({super.key});
+class SignUpPage extends StatelessWidget{
+  const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class LoginPage extends StatelessWidget{
                   Container(
                     width: double.infinity, 
                     child: const Text(
-                      'LOGIN',
+                      'REGISTER',
                       style: TextStyle(fontSize: 20, color: Color(0xFF311A60), fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center, 
                     ),
@@ -99,6 +99,36 @@ class LoginPage extends StatelessWidget{
                       ),
                     ),
                   ),
+                  SizedBox(height: 10),
+                  Container(
+                    width: double.infinity, 
+                    child: const Text(
+                      'Confirm Password',
+                      style: TextStyle(fontSize: 12, color: Color(0xFF634795)),
+                      textAlign: TextAlign.left, 
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Container(
+                    width: double.infinity, 
+                    child: TextField(
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.lock),
+                        hintText: 'Re-enter password here',
+                        hintStyle: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey[600],
+                          fontStyle: FontStyle.italic,
+                        ), 
+                        contentPadding: EdgeInsets.symmetric(vertical: 5),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white.withOpacity(0.8),
+                      ),
+                    ),
+                  ),
                   SizedBox(height: 30),
                   SizedBox(
                     width: double.infinity,
@@ -123,15 +153,15 @@ class LoginPage extends StatelessWidget{
                       ),
                     ),
                   ),
-                  SizedBox(height: 5),
-                  Container(
-                    width: double.infinity, 
-                    child: const Text(
-                      'Forgot your password?',
-                      style: TextStyle(fontSize: 12, color: Color(0xFF8D47FF)),
-                      textAlign: TextAlign.right, 
-                    ),
-                  ),
+                  // SizedBox(height: 5),
+                  // Container(
+                  //   width: double.infinity, 
+                  //   child: const Text(
+                  //     'Forgot your password?',
+                  //     style: TextStyle(fontSize: 12),
+                  //     textAlign: TextAlign.right, 
+                  //   ),
+                  // ),
                   SizedBox(height: 20),
                   Container(
                     width: double.infinity, 
@@ -207,7 +237,7 @@ class LoginPage extends StatelessWidget{
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            "Don't have an account yet?",
+                            "Already have an account?",
                             style: TextStyle(fontSize: 12),
                           ),
                           SizedBox(width: 5),
@@ -215,11 +245,11 @@ class LoginPage extends StatelessWidget{
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => SignUpPage()), 
+                                MaterialPageRoute(builder: (context) => LoginPage()),
                               );
                             },
                             child: Text(
-                              "Register here!",
+                              "Login here!",
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Color(0xFF8D47FF),

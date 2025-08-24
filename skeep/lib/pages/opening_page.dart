@@ -47,7 +47,7 @@ class _OpeningPageState extends State<OpeningPage>
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('lib/assets/Opening.png'),
+            image: AssetImage('lib/assets/background.jpg'),
             fit: BoxFit.cover,
           ),
         ),
