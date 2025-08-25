@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skeep/pages/home_page.dart';
 import 'sign_up_page.dart';
 
-class LoginPage extends StatelessWidget{
+class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
@@ -12,17 +12,17 @@ class LoginPage extends StatelessWidget{
         width: double.infinity,
         height: double.infinity,
         decoration: const BoxDecoration(
-       image: DecorationImage(
-         image: AssetImage('lib/assets/background.jpg'),
-          fit:BoxFit.cover,
+          image: DecorationImage(
+            image: AssetImage('lib/assets/background.jpg'),
+            fit: BoxFit.cover,
+          ),
         ),
-       ),
-       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset('lib/assets/Logo.png', width: 110,),
-          const SizedBox(height: 40,),
-          Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('lib/assets/Logo.png', width: 110),
+            const SizedBox(height: 40),
+            Container(
               width: 300,
               padding: const EdgeInsets.all(30),
               decoration: BoxDecoration(
@@ -31,18 +31,22 @@ class LoginPage extends StatelessWidget{
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children:  [
-                  Container(
-                    width: double.infinity, 
+                children: [
+                  SizedBox(
+                    width: double.infinity,
                     child: const Text(
                       'LOGIN',
-                      style: TextStyle(fontSize: 20, color: Color(0xFF311A60), fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center, 
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Color(0xFF311A60),
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   SizedBox(height: 3),
-                  Container(
-                    width: double.infinity, 
+                  SizedBox(
+                    width: double.infinity,
                     child: const Text(
                       'Email/Username',
                       style: TextStyle(fontSize: 12, color: Color(0xFF634795)),
@@ -50,38 +54,38 @@ class LoginPage extends StatelessWidget{
                     ),
                   ),
                   SizedBox(height: 5),
-                  Container(
-                    width: double.infinity, 
+                  SizedBox(
+                    width: double.infinity,
                     child: TextField(
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.person),
-                        hintText: 'Enter email/username here', 
+                        hintText: 'Enter email/username here',
                         hintStyle: TextStyle(
                           fontSize: 12,
                           color: Colors.grey[600],
                           fontStyle: FontStyle.italic,
-                        ), 
+                        ),
                         contentPadding: EdgeInsets.symmetric(vertical: 5),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                         filled: true,
-                        fillColor: Colors.white.withOpacity(0.8), 
+                        fillColor: Colors.white.withOpacity(0.8),
                       ),
                     ),
                   ),
                   SizedBox(height: 10),
-                  Container(
-                    width: double.infinity, 
+                  SizedBox(
+                    width: double.infinity,
                     child: const Text(
                       'Password',
                       style: TextStyle(fontSize: 12, color: Color(0xFF634795)),
-                      textAlign: TextAlign.left, 
+                      textAlign: TextAlign.left,
                     ),
                   ),
                   SizedBox(height: 5),
-                  Container(
-                    width: double.infinity, 
+                  SizedBox(
+                    width: double.infinity,
                     child: TextField(
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.lock),
@@ -90,7 +94,7 @@ class LoginPage extends StatelessWidget{
                           fontSize: 12,
                           color: Colors.grey[600],
                           fontStyle: FontStyle.italic,
-                        ), 
+                        ),
                         contentPadding: EdgeInsets.symmetric(vertical: 5),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -108,8 +112,9 @@ class LoginPage extends StatelessWidget{
                       onPressed: () {
                         print('Login button pressed');
                         Navigator.push(
-                          context, 
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          context,
+                          MaterialPageRoute(builder: (context) => HomePage()),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF311A60),
@@ -128,21 +133,21 @@ class LoginPage extends StatelessWidget{
                     ),
                   ),
                   SizedBox(height: 5),
-                  Container(
-                    width: double.infinity, 
+                  SizedBox(
+                    width: double.infinity,
                     child: const Text(
                       'Forgot your password?',
                       style: TextStyle(fontSize: 12, color: Color(0xFF8D47FF)),
-                      textAlign: TextAlign.right, 
+                      textAlign: TextAlign.right,
                     ),
                   ),
                   SizedBox(height: 20),
-                  Container(
-                    width: double.infinity, 
+                  SizedBox(
+                    width: double.infinity,
                     child: const Text(
                       'or continue with',
                       style: TextStyle(fontSize: 12, color: Color(0xFF311A60)),
-                      textAlign: TextAlign.center, 
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   SizedBox(height: 15),
@@ -155,7 +160,10 @@ class LoginPage extends StatelessWidget{
                           height: 50,
                           decoration: BoxDecoration(
                             color: Color(0xFF9E79D6).withOpacity(0.4),
-                            border: Border.all(color: Color(0xFF634795), width: 2),
+                            border: Border.all(
+                              color: Color(0xFF634795),
+                              width: 2,
+                            ),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Padding(
@@ -172,7 +180,10 @@ class LoginPage extends StatelessWidget{
                           height: 50,
                           decoration: BoxDecoration(
                             color: Color(0xFF9E79D6).withOpacity(0.4),
-                            border: Border.all(color: Color(0xFF634795), width: 2),
+                            border: Border.all(
+                              color: Color(0xFF634795),
+                              width: 2,
+                            ),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Padding(
@@ -189,7 +200,10 @@ class LoginPage extends StatelessWidget{
                           height: 50,
                           decoration: BoxDecoration(
                             color: Color(0xFF9E79D6).withOpacity(0.4),
-                            border: Border.all(color: Color(0xFF634795), width: 2),
+                            border: Border.all(
+                              color: Color(0xFF634795),
+                              width: 2,
+                            ),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Padding(
@@ -199,12 +213,12 @@ class LoginPage extends StatelessWidget{
                               fit: BoxFit.contain,
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
                   SizedBox(height: 50),
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     child: Center(
                       child: Row(
@@ -219,7 +233,9 @@ class LoginPage extends StatelessWidget{
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => SignUpPage()), 
+                                MaterialPageRoute(
+                                  builder: (context) => SignUpPage(),
+                                ),
                               );
                             },
                             child: Text(
@@ -231,16 +247,15 @@ class LoginPage extends StatelessWidget{
                               ),
                             ),
                           ),
-
                         ],
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
-            )
-          ]
-       ),
+            ),
+          ],
+        ),
       ),
     );
   }
