@@ -7,10 +7,12 @@ import '../history_page.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int selectedIndex;
+  final String? username;
 
   const CustomBottomNavBar({
     super.key,
     this.selectedIndex = 0,
+    this.username,
   });
 
   @override
@@ -33,11 +35,10 @@ class CustomBottomNavBar extends StatelessWidget {
         ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           // Home
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
+          Expanded(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -46,23 +47,30 @@ class CustomBottomNavBar extends StatelessWidget {
                   color: selectedIndex == 0 ? Colors.purple : Colors.grey,
                   iconSize: 30,
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                    );
+                    if (username != null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(username: username!),
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(username: "Guest"),
+                        ),
+                      );
+                    }
                   },
                 ),
-                const Text(
-                  'Home',
-                  style: TextStyle(fontSize: 12),
-                ),
+                const Text('Home', style: TextStyle(fontSize: 12)),
               ],
             ),
           ),
 
           // Inventory
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
+          Expanded(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -77,47 +85,39 @@ class CustomBottomNavBar extends StatelessWidget {
                     );
                   },
                 ),
-                const Text(
-                  'Inventory',
-                  style: TextStyle(fontSize: 12),
-                ),
+                const Text('Inventory', style: TextStyle(fontSize: 12)),
               ],
             ),
           ),
 
           // Center Add Button
-          Transform.translate(
-            offset: const Offset(0, -35),
-            child: Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                color: const Color(0xFF8D47FF),
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: const Color(0xFFF7F5FA),
-                  width: 10,
+          Expanded(
+            child: Transform.translate(
+              offset: const Offset(0, -35),
+              child: Container(
+                width: 80, 
+                height: 80,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF8D47FF),
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Color(0xFFF7F5FA), width: 10),
                 ),
-              ),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.add,
-                  color: Colors.white,
+                child: IconButton(
+                  icon: const Icon(Icons.add, color: Colors.white),
+                  iconSize: 35,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
+                  },
                 ),
-                iconSize: 35,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                  );
-                },
               ),
             ),
           ),
 
           // History
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
+          Expanded(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -132,17 +132,13 @@ class CustomBottomNavBar extends StatelessWidget {
                     );
                   },
                 ),
-                const Text(
-                  'History',
-                  style: TextStyle(fontSize: 12),
-                ),
+                const Text('History', style: TextStyle(fontSize: 12)),
               ],
             ),
           ),
 
           // Profile
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
+          Expanded(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -157,10 +153,7 @@ class CustomBottomNavBar extends StatelessWidget {
                     );
                   },
                 ),
-                const Text(
-                  'Profile',
-                  style: TextStyle(fontSize: 12),
-                ),
+                const Text('Profile', style: TextStyle(fontSize: 12)),
               ],
             ),
           ),

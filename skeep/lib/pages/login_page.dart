@@ -3,7 +3,9 @@ import 'package:skeep/pages/home_page.dart';
 import 'sign_up_page.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key});
+
+  final TextEditingController _usernameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -17,55 +19,57 @@ class LoginPage extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('lib/assets/Logo.png', width: 110),
-            const SizedBox(height: 40),
-            Container(
-              width: 300,
-              padding: const EdgeInsets.all(30),
-              decoration: BoxDecoration(
-                color: const Color(0x80F0F8FF),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    child: const Text(
-                      'LOGIN',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Color(0xFF311A60),
-                        fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: (MediaQuery.of(context).size.height * 0.07).clamp(1, 600)),
+              Image.asset('lib/assets/Logo.png', width: (MediaQuery.of(context).size.width * 0.3).clamp(50.0, 100.0)),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.7,
+                constraints: const BoxConstraints(minWidth: 200, maxWidth: 500),
+                padding: const EdgeInsets.all(30),
+                decoration: BoxDecoration(
+                  color: const Color(0x80F0F8FF),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: const Text(
+                        'LOGIN',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Color(0xFF311A60),
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                  ),
-                  SizedBox(height: 3),
-                  SizedBox(
-                    width: double.infinity,
-                    child: const Text(
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                    const Text(
                       'Email/Username',
                       style: TextStyle(fontSize: 12, color: Color(0xFF634795)),
                       textAlign: TextAlign.left,
                     ),
-                  ),
-                  SizedBox(height: 5),
-                  SizedBox(
-                    width: double.infinity,
-                    child: TextField(
+                    const SizedBox(height: 5),
+                    TextField(
+                      controller: _usernameController,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.person),
+                        prefixIcon: const Icon(Icons.person),
                         hintText: 'Enter email/username here',
                         hintStyle: TextStyle(
                           fontSize: 12,
                           color: Colors.grey[600],
                           fontStyle: FontStyle.italic,
                         ),
-                        contentPadding: EdgeInsets.symmetric(vertical: 5),
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 5,
+                          horizontal: MediaQuery.of(context).size.width * 0.02,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -73,29 +77,27 @@ class LoginPage extends StatelessWidget {
                         fillColor: Colors.white.withOpacity(0.8),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  SizedBox(
-                    width: double.infinity,
-                    child: const Text(
+                    const SizedBox(height: 10),
+                    const Text(
                       'Password',
                       style: TextStyle(fontSize: 12, color: Color(0xFF634795)),
                       textAlign: TextAlign.left,
                     ),
-                  ),
-                  SizedBox(height: 5),
-                  SizedBox(
-                    width: double.infinity,
-                    child: TextField(
+                    const SizedBox(height: 5),
+                    TextField(
+                      obscureText: true,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.lock),
+                        prefixIcon: const Icon(Icons.lock),
                         hintText: 'Enter password here',
                         hintStyle: TextStyle(
                           fontSize: 12,
                           color: Colors.grey[600],
                           fontStyle: FontStyle.italic,
                         ),
-                        contentPadding: EdgeInsets.symmetric(vertical: 5),
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 5,
+                          horizontal: MediaQuery.of(context).size.width * 0.02,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -103,145 +105,124 @@ class LoginPage extends StatelessWidget {
                         fillColor: Colors.white.withOpacity(0.8),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 30),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 40,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        print('Login button pressed');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomePage()),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF311A60),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 40,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          String username = _usernameController.text.trim();
+                          if (username.isEmpty) username = "Guest";
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePage(username: username)),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF311A60),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: const Text(
+                          'LOGIN',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                      child: const Text(
-                        'LOGIN',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                    ),
+                    const SizedBox(height: 5),
+                    const Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        'Forgot your password?',
+                        style: TextStyle(fontSize: 12, color: Color(0xFF8D47FF)),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 5),
-                  SizedBox(
-                    width: double.infinity,
-                    child: const Text(
-                      'Forgot your password?',
-                      style: TextStyle(fontSize: 12, color: Color(0xFF8D47FF)),
-                      textAlign: TextAlign.right,
+                    const SizedBox(height: 20),
+                    const Center(
+                      child: Text(
+                        'or continue with',
+                        style: TextStyle(fontSize: 12, color: Color(0xFF311A60)),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    child: const Text(
-                      'or continue with',
-                      style: TextStyle(fontSize: 12, color: Color(0xFF311A60)),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  SizedBox(
-                    child: Row(
+                    const SizedBox(height: 15),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF9E79D6).withOpacity(0.4),
-                            border: Border.all(
-                              color: Color(0xFF634795),
-                              width: 2,
+                        Flexible(
+                          child: Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF9E79D6).withOpacity(0.4),
+                              border: Border.all(color: const Color(0xFF634795), width: 2),
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(
-                              'lib/assets/facebook.png',
-                              fit: BoxFit.contain,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset('lib/assets/facebook.png', fit: BoxFit.contain),
                             ),
                           ),
                         ),
-                        SizedBox(width: 20),
-                        Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF9E79D6).withOpacity(0.4),
-                            border: Border.all(
-                              color: Color(0xFF634795),
-                              width: 2,
+                        SizedBox(width: 10),
+                        Flexible(
+                          child: Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF9E79D6).withOpacity(0.4),
+                              border: Border.all(color: const Color(0xFF634795), width: 2),
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(
-                              'lib/assets/gmail.png',
-                              fit: BoxFit.contain,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset('lib/assets/gmail.png', fit: BoxFit.contain),
                             ),
                           ),
                         ),
-                        SizedBox(width: 20),
-                        Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF9E79D6).withOpacity(0.4),
-                            border: Border.all(
-                              color: Color(0xFF634795),
-                              width: 2,
+                        SizedBox(width: 5),
+                        Flexible(
+                          child: Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF9E79D6).withOpacity(0.4),
+                              border: Border.all(color: const Color(0xFF634795), width: 2),
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(
-                              'lib/assets/github.png',
-                              fit: BoxFit.contain,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset('lib/assets/github.png', fit: BoxFit.contain),
                             ),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  SizedBox(height: 50),
-                  SizedBox(
-                    width: double.infinity,
-                    child: Center(
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.06.clamp(0.01, 0.02)),
+                    Center(
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
                             "Don't have an account yet?",
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(fontSize: (MediaQuery.of(context).size.width * 0.025).clamp(3.0, 10.0)),
                           ),
-                          SizedBox(width: 5),
+                          const SizedBox(width: 5),
                           GestureDetector(
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                  builder: (context) => SignUpPage(),
-                                ),
+                                MaterialPageRoute(builder: (context) => SignUpPage()),
                               );
                             },
                             child: Text(
                               "Register here!",
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: (MediaQuery.of(context).size.width * 0.025).clamp(3.0, 10.0),
                                 color: Color(0xFF8D47FF),
                                 fontWeight: FontWeight.bold,
                               ),
@@ -250,11 +231,11 @@ class LoginPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

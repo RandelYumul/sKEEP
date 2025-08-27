@@ -30,7 +30,7 @@ class _OpeningPageState extends State<OpeningPage>
       Future.delayed(const Duration(seconds: 5), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),
+        MaterialPageRoute(builder: (context) => LoginPage()),
       );
     });
     }
