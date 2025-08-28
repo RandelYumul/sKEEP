@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skeep/pages/widgets/bottom_nav.dart';
 import 'package:skeep/pages/widgets/item_history.dart';
 import 'package:skeep/pages/widgets/search_bar.dart';
+import 'package:skeep/pages/widgets/sort_icon.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
@@ -112,6 +113,16 @@ class _HistoryPageState extends State<HistoryPage> {
     });
   }
 
+  void _sortHistory(bool isAscending) {
+    setState(() {
+      filteredHistory.sort((a, b) {
+        final numA = int.parse(a['transactionNum']);
+        final numB = int.parse(b['transactionNum']);
+        return isAscending ? numA.compareTo(numB) : numB.compareTo(numA);
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,9 +141,17 @@ class _HistoryPageState extends State<HistoryPage> {
                 top: 32,
                 bottom: 16,
               ),
-              child: CustomSearchBar(
-                controller: _searchController,
-                onChanged: _filterHistory,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: CustomSearchBar(
+                      controller: _searchController,
+                      onChanged: _filterHistory,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  SortWidget(onSortChange: _sortHistory),
+                ],
               ),
             ),
 
