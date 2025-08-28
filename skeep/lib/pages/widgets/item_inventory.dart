@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skeep/pages/widgets/item_details.dart';
 
 class ItemInventory extends StatelessWidget {
   const ItemInventory({
@@ -119,6 +120,18 @@ class ItemInventory extends StatelessWidget {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     // Go to item deatails page
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ItemDetails(
+                                          productName: productName!,
+                                          supplier: supplier!,
+                                          price: price!,
+                                          unit: unit!,
+                                          stock: stock!,
+                                        ),
+                                      ),
+                                    );
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Color(
