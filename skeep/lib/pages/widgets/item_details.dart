@@ -348,6 +348,62 @@ class ItemDetails extends StatelessWidget {
                                         Text("16/08/2025"),
                                       ],
                                     ),
+                                    const SizedBox(height: 6),
+
+                                    // For space
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text(""),
+                                        Text(""),
+                                        Text(""),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 6),
+
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text(""),
+                                        Text(""),
+                                        Text(""),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 6),
+
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text(""),
+                                        Text(""),
+                                        Text(""),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 6),
+
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text(""),
+                                        Text(""),
+                                        Text(""),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 6),
+
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text(""),
+                                        Text(""),
+                                        Text(""),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
