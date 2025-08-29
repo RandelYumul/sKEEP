@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.8,
+              height: MediaQuery.of(context).size.height * 0.82,
               width: double.infinity,
               decoration: const BoxDecoration(
                 color: Color(0xFFC4C3F5),
@@ -51,9 +51,8 @@ class HomePage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  // Inventory Summary
                   Padding(
-                    padding: const EdgeInsets.only(top: 16),
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
                     child: Text(
                       'Inventory Summary',
                       style: const TextStyle(
@@ -63,9 +62,199 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 200), // temporary space
+                  // BOXES AFTER INVENTORY SUMMARY
+                  SizedBox(
+                    child: Column(
+                    children: [
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.05),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //Boxes
+                          children: [
+                            // 1st Box (top left)
+                            Container(
+                              constraints: const BoxConstraints(
+                                minHeight: 50,
+                                maxHeight: 110
+                              ),
+                              width: MediaQuery.of(context).size.width*0.425,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFFFFFFF),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20)
+                                ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsetsGeometry.all(15),
+                                child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                    FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                      "145",
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context).size.height * 0.035
+                                        ),
+                                      ),
+                                    ),
+                                    FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                      "Total Stock",
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context).size.height * 0.02
+                                        )
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ),
+                            // 2nd Box (top right)
+                            Container(
+                              constraints: const BoxConstraints(
+                                minHeight: 50,
+                                maxHeight: 110
+                              ),
+                              width: MediaQuery.of(context).size.width*0.425,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFFFFFFF),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20)
+                                ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsetsGeometry.all(15),
+                                child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                    FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                      "8",
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context).size.height * 0.035
+                                        )
+                                      ),
+                                    ),
+                                    FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                      "Low Stock",
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context).size.height * 0.02
+                                        )
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        ),
 
-                  // Recent Activities
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                        
+                        Padding(
+                        padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.05),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // 3rd Box (bottom left)
+                            Container(
+                              constraints: const BoxConstraints(
+                                minHeight: 50,
+                                maxHeight: 110
+                              ),
+                              width: MediaQuery.of(context).size.width*0.425,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFFFFFFF),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20)
+                                ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsetsGeometry.all(15),
+                                child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                    FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                      "2",
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context).size.height * 0.035
+                                        )
+                                      ),
+                                    ),
+                                    FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                      "No Stock",
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context).size.height * 0.02
+                                        )
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            // 4th Box (bottom right)
+                            Container(
+                              constraints: const BoxConstraints(
+                                minHeight: 50,
+                                maxHeight: 110
+                              ),
+                              width: MediaQuery.of(context).size.width*0.425,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFFFFFFF),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20)
+                                ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsetsGeometry.all(15),
+                                child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                    FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                      "₱250,255,35",
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context).size.height * 0.035
+                                        )
+                                      ),
+                                    ),
+                                    FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                      "Inventory Value",
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context).size.height * 0.02
+                                        )
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        ),
+                      ],
+                    ),
+                  ),
+
                   Padding(
                     padding: const EdgeInsets.only(top: 16),
                     child: Text(
