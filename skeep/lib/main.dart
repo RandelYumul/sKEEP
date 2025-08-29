@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skeep/pages/history_page.dart';
 import 'package:skeep/pages/inventory_page.dart';
 import 'pages/opening_page.dart';
+import 'pages/profile_page.dart';
 
 void main() {
   runApp( MyApp());
@@ -14,6 +15,7 @@ class MyApp extends StatefulWidget{
     const OpeningPage(),
     const InventoryPage(),
     const HistoryPage(),
+    const ProfilePage()
   ];
 
   @override

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skeep/pages/add_page.dart';
 import '../profile_page.dart';
 import '../home_page.dart';
 import '../login_page.dart';
@@ -108,7 +109,7 @@ class CustomBottomNavBar extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
+                      MaterialPageRoute(builder: (context) => AddPage()),
                     );
                   },
                 ),
