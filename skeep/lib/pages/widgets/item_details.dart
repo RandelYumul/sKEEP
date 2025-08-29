@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:skeep/pages/widgets/bottom_nav.dart';
-import 'package:skeep/pages/widgets/item_details.dart';
 
 class ItemDetails extends StatelessWidget {
   final String productName;
@@ -35,10 +34,16 @@ class ItemDetails extends StatelessWidget {
             children: [
               // HEADER
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 30,
+                padding: const EdgeInsets.only(
+                  top: 32,
+                  bottom: 32,
+                  left: 16,
+                  right: 16,
                 ),
+                // padding: const EdgeInsets.symmetric(
+                //   horizontal: 12,
+                //   vertical: 30,
+                // ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -46,6 +51,7 @@ class ItemDetails extends StatelessWidget {
                       icon: const Icon(
                         Icons.subdirectory_arrow_left,
                         color: Colors.white,
+                        size: 24,
                       ),
                       onPressed: () {
                         Navigator.pop(context);
@@ -56,15 +62,19 @@ class ItemDetails extends StatelessWidget {
                         child: Text(
                           "Item Details",
                           style: TextStyle(
-                            fontSize: 20,
-                            // fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.edit, color: Colors.white),
+                      icon: const Icon(
+                        Icons.edit,
+                        color: Colors.white,
+                        size: 24,
+                      ),
                       onPressed: () {
                         // edit page
                       },
@@ -90,13 +100,19 @@ class ItemDetails extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 16),
+                          padding: const EdgeInsets.only(
+                            top: 32,
+                            left: 32,
+                            right: 16,
+                            bottom: 16,
+                          ),
                           // Item Name
                           child: Text(
                             productName,
                             style: const TextStyle(
-                              fontSize: 18,
-                              color: Colors.black,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF3B3A3A),
                             ),
                           ),
                         ),
@@ -121,164 +137,219 @@ class ItemDetails extends StatelessWidget {
                           ),
                         ),
 
-                        const SizedBox(height: 50),
+                        const SizedBox(height: 32),
                         // Price and Stock
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // Price
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "Price",
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-
-                                  const SizedBox(height: 6),
-
-                                  Container(
-                                    padding: const EdgeInsets.all(12),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        "₱$price.00",
-                                        style: const TextStyle(fontSize: 14),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 32,
+                            right: 32,
+                            bottom: 32,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // Price
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "Price",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xFF3B3A3A),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
 
-                            const SizedBox(width: 16),
+                                    const SizedBox(height: 6),
 
-                            // Stock
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "Stock Count",
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                  const SizedBox(height: 6),
-                                  Container(
-                                    padding: const EdgeInsets.all(12),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        "$stock",
-                                        style: const TextStyle(fontSize: 14),
+                                    Container(
+                                      padding: const EdgeInsets.all(12),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(color: Colors.grey),
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "₱$price.00",
+                                          style: const TextStyle(fontSize: 14),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+
+                              const SizedBox(width: 32),
+
+                              // Stock
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "Stock Count",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xFF3B3A3A),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 6),
+                                    Container(
+                                      padding: const EdgeInsets.all(12),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(color: Colors.grey),
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "$stock",
+                                          style: const TextStyle(fontSize: 14),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        const SizedBox(height: 20),
+
+                        // const SizedBox(height: 20),
 
                         // Supplier
-                        const Text(
-                          "Supplier",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        const SizedBox(height: 6),
-
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                            supplier,
-                            style: const TextStyle(fontSize: 14),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 32, right: 32),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Supplier",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF3B3A3A),
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    supplier,
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
 
                         const SizedBox(height: 20),
 
                         // History
-                        const Text(
-                          "History",
-                          style: TextStyle(color: Colors.black),
-                        ),
-
-                        const SizedBox(height: 6),
-
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(8),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 16,
+                            right: 32,
+                            bottom: 32,
+                            left: 32,
                           ),
-
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: const [
-                                  Text(
-                                    "Control No.",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Quantity",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Date",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
+                              const Text(
+                                "History",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF3B3A3A),
+                                ),
                               ),
-                              const Divider(),
-
-                              // For History Info
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: const [
-                                  Text("#345"),
-                                  Text("+50"),
-                                  Text("21/08/2025"),
-                                ],
-                              ),
-
                               const SizedBox(height: 6),
+                              Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text(
+                                          "Control No.",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          "Quantity",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          "Date",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const Divider(),
 
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: const [
-                                  Text("#340"),
-                                  Text("+60"),
-                                  Text("19/08/2025"),
-                                ],
+                                    // For History Info
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text("#345"),
+                                        Text("+50"),
+                                        Text("21/08/2025"),
+                                      ],
+                                    ),
+
+                                    const SizedBox(height: 6),
+
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text("#344"),
+                                        Text("+60"),
+                                        Text("19/08/2025"),
+                                      ],
+                                    ),
+
+                                    const SizedBox(height: 6),
+
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text("#343"),
+                                        Text("-10"),
+                                        Text("16/08/2025"),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
