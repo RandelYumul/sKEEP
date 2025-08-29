@@ -173,7 +173,7 @@ class ItemDetails extends StatelessWidget {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          "₱$price.00",
+                                          "₱$price",
                                           style: const TextStyle(fontSize: 14),
                                         ),
                                       ),
@@ -289,25 +289,34 @@ class ItemDetails extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
                                       children: const [
-                                        Text(
-                                          "Control No.",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
+                                        Expanded(
+                                          child: Text(
+                                            "Control No.",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
-                                        Text(
-                                          "Quantity",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
+                                        Expanded(
+                                          child: Center(
+                                            child: Text(
+                                              "Quantity",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                        Text(
-                                          "Date",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
+                                        Expanded(
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(
+                                              "Date",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -316,92 +325,158 @@ class ItemDetails extends StatelessWidget {
 
                                     // For History Info
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
                                       children: const [
-                                        Text("#345"),
-                                        Text("+50"),
-                                        Text("21/08/2025"),
+                                        Expanded(child: Text("#345")),
+                                        Expanded(
+                                          child: Center(child: Text("+50")),
+                                        ),
+                                        Expanded(
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text("21/08/2025"),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 6),
+                                    Row(
+                                      children: const [
+                                        Expanded(child: Text("#344")),
+                                        Expanded(
+                                          child: Center(child: Text("+60")),
+                                        ),
+                                        Expanded(
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text("19/08/2025"),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 6),
+                                    Row(
+                                      children: const [
+                                        Expanded(child: Text("#343")),
+                                        Expanded(
+                                          child: Center(child: Text("-10")),
+                                        ),
+                                        Expanded(
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text("16/08/2025"),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 6),
+                                    Row(
+                                      children: const [
+                                        Expanded(child: Text("")),
+                                        Expanded(
+                                          child: Center(child: Text("")),
+                                        ),
+                                        Expanded(
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(""),
+                                          ),
+                                        ),
                                       ],
                                     ),
 
                                     const SizedBox(height: 6),
-
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
                                       children: const [
-                                        Text("#344"),
-                                        Text("+60"),
-                                        Text("19/08/2025"),
+                                        Expanded(child: Text("")),
+                                        Expanded(
+                                          child: Center(child: Text("")),
+                                        ),
+                                        Expanded(
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(""),
+                                          ),
+                                        ),
                                       ],
                                     ),
 
                                     const SizedBox(height: 6),
-
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
                                       children: const [
-                                        Text("#343"),
-                                        Text("-10"),
-                                        Text("16/08/2025"),
+                                        Expanded(child: Text("")),
+                                        Expanded(
+                                          child: Center(child: Text("")),
+                                        ),
+                                        Expanded(
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(""),
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                    const SizedBox(height: 6),
 
-                                    // For space
+                                    const SizedBox(height: 6),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
                                       children: const [
-                                        Text(""),
-                                        Text(""),
-                                        Text(""),
+                                        Expanded(child: Text("")),
+                                        Expanded(
+                                          child: Center(child: Text("")),
+                                        ),
+                                        Expanded(
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(""),
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                    const SizedBox(height: 6),
 
+                                    const SizedBox(height: 6),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
                                       children: const [
-                                        Text(""),
-                                        Text(""),
-                                        Text(""),
+                                        Expanded(child: Text("")),
+                                        Expanded(
+                                          child: Center(child: Text("")),
+                                        ),
+                                        Expanded(
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(""),
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                    const SizedBox(height: 6),
 
+                                    const SizedBox(height: 6),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
                                       children: const [
-                                        Text(""),
-                                        Text(""),
-                                        Text(""),
+                                        Expanded(child: Text("")),
+                                        Expanded(
+                                          child: Center(child: Text("")),
+                                        ),
+                                        Expanded(
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(""),
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                    const SizedBox(height: 6),
 
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: const [
-                                        Text(""),
-                                        Text(""),
-                                        Text(""),
-                                      ],
-                                    ),
                                     const SizedBox(height: 6),
-
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
                                       children: const [
-                                        Text(""),
-                                        Text(""),
-                                        Text(""),
+                                        Expanded(child: Text("")),
+                                        Expanded(
+                                          child: Center(child: Text("")),
+                                        ),
+                                        Expanded(
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(""),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ],
