@@ -110,170 +110,19 @@ class ProfilePage extends StatelessWidget{
                             ),
                             // Inside box of profile information
                             child: Padding(
-                              padding: EdgeInsetsGeometry.all(20),
-                              child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      Icons.view_list_outlined,
-                                      size: 25,
-                                      color: Colors.grey[600],
-                                    ),
-                                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                                    Text(
-                                      "Edit profile information",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 15
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Icon(
-                                          Icons.notifications_outlined,
-                                          size: 25,
-                                          color: Colors.grey[600],
-                                        ),
-                                        SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                                          Text(
-                                            "Notifications",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 15
-                                            ),
-                                          )
-                                        ],
-                                    ),
-                                    Text(
-                                      "On",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 15,
-                                        color: Color(0xFF8D47FF)
-                                      ),
-                                    ),  
-                                  ],
-                                ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Icon(
-                                          Icons.language_outlined,
-                                          size: 25,
-                                          color: Colors.grey[600],
-                                        ),
-                                        SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                                          Text(
-                                            "Language",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 15
-                                            ),
-                                          )
-                                        ],
-                                    ),
-                                    Text(
-                                      "English",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 15,
-                                        color: Color(0xFF8D47FF)
-                                      ),
-                                    ),  
-                                  ],
-                                ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      Icons.security,
-                                      size: 25,
-                                      color: Colors.grey[600],
-                                    ),
-                                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                                    Text(
-                                      "Security",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 15
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      Icons.help_outline,
-                                      size: 25,
-                                      color: Colors.grey[600],
-                                    ),
-                                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                                    Text(
-                                      "Help & Support",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 15
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      Icons.chat_outlined,
-                                      size: 25,
-                                      color: Colors.grey[600],
-                                    ),
-                                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                                    Text(
-                                      "Contact us",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 15
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      Icons.lock_outline,
-                                      size: 25,
-                                      color: Colors.grey[600],
-                                    ),
-                                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                                    Text(
-                                      "Privacy policy",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 15
-                                      ),
-                                    )
-                                  ],
-                                ),                                
-                              ],
-                            ),
+                              padding: const EdgeInsets.all(20),
+                              child: ListView(
+                                padding: EdgeInsets.zero,
+                                children: [
+                                  _buildRow(icon: Icons.view_list_outlined, text: "Edit profile information"),                                
+                                  _buildRowwithStatus(icon: Icons.notifications_outlined, text: "Notifications", status: "On"),
+                                  _buildRowwithStatus(icon: Icons.language_outlined, text: "Language", status: "English"),
+                                  _buildRow(icon: Icons.security, text: "Security"),
+                                  _buildRow(icon: Icons.help_outline, text: "Help & Support"),
+                                  _buildRow(icon: Icons.chat_outlined, text: "Contact us"),
+                                  _buildRow(icon: Icons.lock_outline, text: "Privacy policy"),
+                                ],
+                              ),
                             ),
                           )
                         )
@@ -289,5 +138,66 @@ class ProfilePage extends StatelessWidget{
         ),
         bottomNavigationBar: const CustomBottomNavBar(selectedIndex: 3),
     );
+}
+
+Widget _buildRow({required IconData icon, required String text}){
+  return Padding(
+    padding: EdgeInsetsGeometry.symmetric(horizontal: 0, vertical: 5),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Icon(
+          icon,
+          size: 25,
+          color: Colors.grey[600],
+        ),
+        SizedBox(width: 10),
+        Text(
+          text,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 15
+          ),
+        )
+      ],
+    ),
+  );
+}
+
+Widget _buildRowwithStatus ({required IconData icon, required String text, required String status}){
+  return Padding(
+    padding: EdgeInsetsGeometry.symmetric(horizontal: 0, vertical: 5),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Icon(
+              icon,
+              size: 25,
+              color: Colors.grey[600],
+            ),
+            SizedBox(width: 10),
+              Text(
+                text,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 15
+                ),
+              )
+            ],
+        ),
+        Text(
+          status,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 15,
+            color: Color(0xFF8D47FF)
+          ),
+        ),  
+      ],
+    ),
+  );
 }
 }
