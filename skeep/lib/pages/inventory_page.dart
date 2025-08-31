@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:skeep/pages/widgets/bottom_nav.dart'; // Custom bottom navigation bar widget
-import 'package:skeep/pages/widgets/item_inventory.dart'; // Widget to display inventory items
-import 'package:skeep/pages/widgets/search_bar.dart'; // Custom search bar widget
-import 'package:skeep/pages/widgets/sort_filter_bar.dart'; // Sort/filter bar widget
+import 'package:skeep/pages/widgets/bottom_nav.dart';
+import 'package:skeep/pages/widgets/item_inventory.dart';
+import 'package:skeep/pages/widgets/search_bar.dart';
+import 'package:skeep/pages/widgets/sort_filter_bar.dart';
 import '../entity/product.dart';
 import '../database/storage.dart';
 
-// Main page for displaying inventory items
 class InventoryPage extends StatefulWidget {
   const InventoryPage({super.key});
 
@@ -14,42 +13,47 @@ class InventoryPage extends StatefulWidget {
   State<InventoryPage> createState() => _InventoryPageState();
 }
 
-class _InventoryPageState extends State<InventoryPage> { // Show all items when opening the page
+class _InventoryPageState extends State<InventoryPage> {
+  int selectedIndex = 0; // current sort/filter option
 
-  // Index for selected sort/filter option
-  int selectedIndex = 0;
-
-  // List of inventory items 
+  // All products loaded from storage
   List<Product> itemInventory = [];
 
-  // Called when the widget is first created
+  // Products currently displayed (after search/sort)
+  List<Product> displayedItems = [];
+
+  // Search controller
+  final TextEditingController searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
-    loadData(); // Load products from storage
-    displayedItems = List.from(itemInventory); // Initialize displayed items
+    loadData();
   }
 
-  // Loads products from persistent storage (file/database)
+  // Load products from storage
   Future<void> loadData() async {
-    final list = await Storage.loadProducts(); // Get products from Storage
-    setState(() => itemInventory = list); // Update UI with loaded products
+    final list = await Storage.loadProducts();
+    setState(() {
+      itemInventory = list;
+      displayedItems = List.from(itemInventory); // start with all
+    });
   }
 
-  //TO DO: Implement delete product function here and make it slidable
-
-
-  // List of items currently displayed (filtered/sorted)
-  List<Product> displayedItems = [];
-
-  // Controller for the search bar
-  TextEditingController searchController = TextEditingController();
-
-  // Filter items based on search query
+  // Filter items by product name or supplier
   void _filterItems(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        displayedItems = List.from(itemInventory);
+      });
+      return;
+    }
+
     final results = itemInventory.where((item) {
-      final name = item.name.toString().toLowerCase();
-      return name.contains(query.toLowerCase());
+      final name = item.name.toLowerCase();
+      final supplier = item.supplier.toLowerCase();
+      final q = query.toLowerCase();
+      return name.contains(q) || supplier.contains(q);
     }).toList();
 
     setState(() {
@@ -57,59 +61,51 @@ class _InventoryPageState extends State<InventoryPage> { // Show all items when 
     });
   }
 
-  // Show all items (reset filter)
+  // Sort helpers
   void _showAll() {
     setState(() {
       displayedItems = List.from(itemInventory);
     });
   }
 
-  // Sort items alphabetically by product name
   void _sortAZ() {
     setState(() {
-      displayedItems.sort(
-        (a, b) => a.name.compareTo(b.name),
-      );
+      displayedItems.sort((a, b) => a.name.compareTo(b.name));
     });
   }
 
-  // Sort items by price (ascending)
   void _sortByPrice() {
     setState(() {
       displayedItems.sort((a, b) => a.price.compareTo(b.price));
     });
   }
 
-  // Handle selection of sort/filter option
+  // Handle sort/filter bar selection
   void _onSelect(int index) {
     setState(() {
       selectedIndex = index;
 
       if (index == 0) {
-        _showAll(); // Show all items
+        _showAll();
       } else if (index == 1) {
-        _sortAZ(); // Sort A-Z
+        _sortAZ();
       } else if (index == 2) {
-        _sortByPrice(); // Sort by price
+        _sortByPrice();
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      _onSelect(selectedIndex);
-    });
-    // Main UI for inventory page
     return Scaffold(
       extendBody: true,
       body: Container(
-        color: const Color(0xFFC4C3F5), 
+        color: const Color(0xFFC4C3F5),
         child: Column(
           children: [
-            const SizedBox(height: 50), // Top spacing
+            const SizedBox(height: 50),
 
-            // Search bar for filtering items
+            // Search bar
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: CustomSearchBar(
@@ -118,20 +114,24 @@ class _InventoryPageState extends State<InventoryPage> { // Show all items when 
               ),
             ),
 
-            const SizedBox(height: 16), // Spacing
+            const SizedBox(height: 16),
 
-            // Sort/filter bar for inventory
-            SortFilterBar(selectedIndex: selectedIndex, onSelect: _onSelect),
+            // Sort/filter bar
+            SortFilterBar(
+              selectedIndex: selectedIndex,
+              onSelect: _onSelect,
+            ),
 
-            const SizedBox(height: 16), // Spacing
+            const SizedBox(height: 16),
 
-            // List of inventory items
+            // Inventory list
             Expanded(
               child: ListView.builder(
                 itemCount: displayedItems.length,
                 itemBuilder: (context, index) {
                   final p = displayedItems[index];
                   return ItemInventory(
+                    product: p,
                     productName: p.name,
                     supplier: p.supplier,
                     price: p.price,
@@ -146,9 +146,8 @@ class _InventoryPageState extends State<InventoryPage> { // Show all items when 
         ),
       ),
 
-      // Bottom navigation bar for app navigation
+      // Bottom Nav
       bottomNavigationBar: const CustomBottomNavBar(selectedIndex: 1),
     );
-    
   }
 }

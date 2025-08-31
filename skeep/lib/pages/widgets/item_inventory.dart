@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:skeep/pages/widgets/item_details.dart';
 import 'dart:io';
+import '../../entity/product.dart';
 
 class ItemInventory extends StatelessWidget {
   const ItemInventory({
     super.key,
+    required this.product,
     this.productName,
     this.supplier,
     this.price,
@@ -13,6 +15,7 @@ class ItemInventory extends StatelessWidget {
     this.imagePath,
   });
 
+  final Product product;
   final String? productName;
   final String? supplier;
   final double? price;
@@ -143,11 +146,13 @@ class ItemInventory extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => ItemDetails(
+                                          product: product,
                                           productName: productName!,
                                           supplier: supplier!,
                                           price: price!,
                                           unit: unit!,
                                           stock: stock!,
+                                          imagePath: imagePath!,
                                         ),
                                       ),
                                     );

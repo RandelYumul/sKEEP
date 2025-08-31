@@ -1,20 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:skeep/pages/widgets/recent_activities.dart';
 import 'widgets/bottom_nav.dart';
+import '../entity/transaction.dart';
+import '../database/storage.dart';
 
-class HomePage extends StatelessWidget {
+
+class HomePage extends StatefulWidget {
   HomePage({super.key, required this.username});
 
   final String username;
 
-  final List recentActivities = [
-    {'productName': 'Hard Copy A4 Bond Paper', 'quantityChange': -12},
-    {'productName': 'Pilot Permanent Marker', 'quantityChange': 15},
-    {'productName': 'Victory Yellow Pad Paper', 'quantityChange': 50},
-    {'productName': 'Crayons 24pcs', 'quantityChange': 10},
-    {'productName': 'Mongol Pencil 12pcs', 'quantityChange': -2},
-    {'productName': 'Mongol Pencil 12pcs', 'quantityChange': 10},
-  ];
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  // List of all transactions
+  List<Transaction> itemInventory = [];
+  
+  // Filtered + sorted transactions shown in UI
+  List<Transaction> displayedTransactions = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadData(); // Load products from storage
+  }
+
+  // Loads products from persistent storage (file/database)
+  Future<void> loadData() async {
+    final list = await Storage.loadTransactions();
+    setState(() {
+      itemInventory = list;
+      displayedTransactions = List.from(itemInventory); // show all by default
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +52,7 @@ class HomePage extends StatelessWidget {
           children: [
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
-              child: Text("Hello, $username!",
+              child: Text("Hello, ${widget.username}!",
               style: TextStyle(
                 color: Color(0xFFFFF5F5),
                 fontSize: MediaQuery.of(context).size.height * 0.05),
@@ -269,11 +289,13 @@ class HomePage extends StatelessWidget {
 
                   Expanded(
                     child: ListView.builder(
-                      itemCount: recentActivities.length,
+                      itemCount: displayedTransactions.length,
                       itemBuilder: (context, index) {
+                        final reversedList = displayedTransactions.reversed.toList();
+                        final t = reversedList[index];
                         return RecentActivities(
-                          productName: recentActivities[index]['productName'],
-                          quantityChange: recentActivities[index]['quantityChange'],
+                          productName: t.name,
+                          quantityChange: t.quantityChange,
                         );
                       },
                     ),

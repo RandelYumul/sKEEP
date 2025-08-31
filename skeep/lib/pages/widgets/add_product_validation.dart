@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skeep/pages/inventory_page.dart';
 
 class AddProductValidation extends StatelessWidget {
   const AddProductValidation({super.key});
@@ -14,7 +15,12 @@ class AddProductValidation extends StatelessWidget {
           child: Text('Cancel'),
         ),
         ElevatedButton(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => InventoryPage()),
+            );
+          },
           child: Text('Save'),
         ),
       ],

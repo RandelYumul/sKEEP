@@ -16,36 +16,38 @@ class HistoryPage extends StatefulWidget {
 
 class _HistoryPageState extends State<HistoryPage> {
   final TextEditingController _searchController = TextEditingController();
-  // List of inventory items 
+
+  // List of all transactions
   List<Transaction> itemInventory = [];
 
-  // List of items currently displayed (filtered/sorted)
+  // Filtered + sorted transactions shown in UI
   List<Transaction> displayedTransactions = [];
 
-  // Called when the widget is first created
   @override
   void initState() {
     super.initState();
     loadData(); // Load products from storage
-    displayedTransactions = List.from(itemInventory); // Initialize displayed items
   }
 
   // Loads products from persistent storage (file/database)
   Future<void> loadData() async {
-    final list = await Storage.loadTransactions(); // Get products from Storage
-    setState(() => itemInventory = list); // Update UI with loaded products
+    final list = await Storage.loadTransactions();
+    setState(() {
+      itemInventory = list;
+      displayedTransactions = List.from(itemInventory); // show all by default
+    });
   }
-
-  // List of filtered history items
-  List<Transaction> filteredHistory = [];
 
   // Filter history based on search query
   void _filterHistory(String query) {
     final results = itemInventory.where((item) {
-      final name = item.name.toString().toLowerCase();
-      final supplier = item.supplier.toString().toLowerCase();
-      final id = item.id.toString().toLowerCase();
-      return name.contains(query.toLowerCase()) || supplier.contains(query.toLowerCase()) || id.contains(query.toLowerCase());
+      final name = item.name.toLowerCase();
+      final supplier = item.supplier.toLowerCase();
+      final id = item.id.toLowerCase();
+
+      return name.contains(query.toLowerCase()) ||
+          supplier.contains(query.toLowerCase()) ||
+          id.contains(query.toLowerCase());
     }).toList();
 
     setState(() {
@@ -53,12 +55,14 @@ class _HistoryPageState extends State<HistoryPage> {
     });
   }
 
-  // Sort history by transaction number
+  // Sort history by transaction id (ascending/descending)
   void _sortHistory(bool isAscending) {
     setState(() {
-      filteredHistory.sort((a, b) {
-        final numA = int.parse(a.id);
-        final numB = int.parse(b.id);
+      displayedTransactions.sort((a, b) {
+        // handle cases like "txn-1" by extracting numbers
+        final numA = int.tryParse(a.id.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+        final numB = int.tryParse(b.id.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+
         return isAscending ? numA.compareTo(numB) : numB.compareTo(numA);
       });
     });
@@ -66,18 +70,13 @@ class _HistoryPageState extends State<HistoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      filteredHistory = List.from(itemInventory);
-    });
     return Scaffold(
       extendBody: true,
-
-      // Content
       body: Container(
         color: const Color(0xFFC4C3F5),
         child: Column(
           children: [
-            // Search Bar
+            // Search + Sort
             Padding(
               padding: const EdgeInsets.only(
                 left: 16,
@@ -99,12 +98,12 @@ class _HistoryPageState extends State<HistoryPage> {
               ),
             ),
 
-            // Item History List
+            // History List
             Expanded(
               child: ListView.builder(
-                itemCount: filteredHistory.length,
+                itemCount: displayedTransactions.length,
                 itemBuilder: (context, index) {
-                  final p = filteredHistory[index];
+                  final p = displayedTransactions[index];
                   return ItemHistory(
                     transactionNum: p.id,
                     productName: p.name,
@@ -118,7 +117,6 @@ class _HistoryPageState extends State<HistoryPage> {
         ),
       ),
 
-      // Bottom Navigation Bar
       bottomNavigationBar: const CustomBottomNavBar(selectedIndex: 2),
     );
   }

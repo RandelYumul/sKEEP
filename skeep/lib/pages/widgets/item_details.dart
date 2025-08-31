@@ -1,24 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:skeep/pages/edit_page.dart';
 import 'package:skeep/pages/widgets/bottom_nav.dart';
+import 'dart:io';
+import '../../entity/product.dart';
 
 class ItemDetails extends StatelessWidget {
+  final Product product;
   final String productName;
   final String supplier;
   final double price;
   final String unit;
   final int stock;
+  String imagePath;
 
-  const ItemDetails({
+  ItemDetails({
     super.key,
+    required this.product,
     required this.productName,
     required this.supplier,
     required this.price,
     required this.unit,
     required this.stock,
+    required this.imagePath,
   });
 
   @override
   Widget build(BuildContext context) {
+    Widget imageWidget;
+    if (imagePath != null && imagePath!.isNotEmpty) {
+      if (imagePath!.startsWith('lib/assets/')) {
+        imageWidget = Image.asset(
+          imagePath!,
+          fit: BoxFit.cover,
+        );
+      } else {
+        imageWidget = Image.file(
+          File(imagePath!),
+          fit: BoxFit.cover,
+        );
+      }
+    } else {
+      imageWidget = Image.asset(
+        'lib/assets/image_placeholder.png',
+        fit: BoxFit.cover,
+      );
+    }
+
     return Scaffold(
       extendBody: true,
       body: Container(
@@ -76,7 +103,13 @@ class ItemDetails extends StatelessWidget {
                         size: 24,
                       ),
                       onPressed: () {
-                        // edit page
+                        // Go to item deatails page
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditPage(product: product),
+                          ),
+                        );
                       },
                     ),
                   ],
@@ -118,7 +151,7 @@ class ItemDetails extends StatelessWidget {
                         ),
 
                         const SizedBox(height: 10),
-
+                        // Product Image
                         Center(
                           child: Container(
                             height: 150,
@@ -127,13 +160,7 @@ class ItemDetails extends StatelessWidget {
                               color: Colors.grey[300],
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: Center(
-                              child: Icon(
-                                Icons.image,
-                                size: 50,
-                                color: Colors.grey[600],
-                              ),
-                            ),
+                            child: imageWidget,
                           ),
                         ),
 
