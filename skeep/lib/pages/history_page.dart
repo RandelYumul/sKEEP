@@ -76,13 +76,14 @@ class _HistoryPageState extends State<HistoryPage> {
         color: const Color(0xFFC4C3F5),
         child: Column(
           children: [
+            const SizedBox(height: 35),
             // Search + Sort
             Padding(
               padding: const EdgeInsets.only(
                 left: 16,
                 right: 16,
                 top: 32,
-                bottom: 16,
+                bottom: 8,
               ),
               child: Row(
                 children: [

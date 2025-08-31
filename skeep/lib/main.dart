@@ -72,6 +72,21 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'sKEEP',
+      theme: ThemeData(
+        fontFamily: 'Outfit',
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(fontSize: 57.0, fontWeight: FontWeight.bold),
+          titleLarge: TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600),
+          bodyMedium: TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal),
+          bodySmall: TextStyle(fontSize: 12.0, color: Colors.grey),
+        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.deepPurple,
+          foregroundColor: Colors.white,
+        ),
+      ),
       home: const OpeningPage(),
     );
   }

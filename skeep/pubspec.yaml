@@ -16,6 +16,7 @@ dependencies:
   hive_flutter: ^1.1.0
   path_provider: ^2.0.14
   uuid: ^3.0.7
+  flutter_slidable: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -30,3 +31,26 @@ flutter:
 
   assets:
     - lib/assets/
+
+  fonts:
+      - family: Outfit
+        fonts:
+          - asset: lib/assets/fonts/Outfit-Thin.ttf
+            weight: 100
+          - asset: lib/assets/fonts/Outfit-ExtraLight.ttf
+            weight: 200
+          - asset: lib/assets/fonts/Outfit-Light.ttf
+            weight: 300
+          - asset: lib/assets/fonts/Outfit-Regular.ttf
+            weight: 400
+          - asset: lib/assets/fonts/Outfit-Medium.ttf
+            weight: 500
+          - asset: lib/assets/fonts/Outfit-SemiBold.ttf
+            weight: 600
+          - asset: lib/assets/fonts/Outfit-Bold.ttf
+            weight: 700
+          - asset: lib/assets/fonts/Outfit-ExtraBold.ttf
+            weight: 800
+          - asset: lib/assets/fonts/Outfit-Black.ttf
+            weight: 900
+

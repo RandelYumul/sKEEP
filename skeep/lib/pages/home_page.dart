@@ -3,6 +3,7 @@ import 'package:skeep/pages/widgets/recent_activities.dart';
 import 'widgets/bottom_nav.dart';
 import '../entity/transaction.dart';
 import '../database/storage.dart';
+import '../entity/product.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -15,25 +16,65 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // List of all transactions
-  List<Transaction> itemInventory = [];
-  
-  // Filtered + sorted transactions shown in UI
+  // List of all transactions and products
+  List<Product> itemInventory = [];
   List<Transaction> displayedTransactions = [];
 
+  // Load data when the page is initialized
   @override
   void initState() {
     super.initState();
-    loadData(); // Load products from storage
+    loadData();
   }
 
   // Loads products from persistent storage (file/database)
   Future<void> loadData() async {
-    final list = await Storage.loadTransactions();
+    final listT = await Storage.loadTransactions();
+    final listP = await Storage.loadProducts();
     setState(() {
-      itemInventory = list;
-      displayedTransactions = List.from(itemInventory); // show all by default
+      itemInventory = listP;
+      displayedTransactions = listT;
     });
+  }
+
+  // Function to get total stock
+  int getTotalStock() {
+    int totalStock = 0;
+    for (var product in itemInventory) {
+      totalStock += product.quantity;
+    }
+    return totalStock;
+  }
+
+  // Function to get low stock count (less than 20 but greater than 0)
+  int getLowStockCount() {
+    int lowStockCount = 0;
+    for (var product in itemInventory) {
+      if (product.quantity > 0 && product.quantity <= 20) {
+        lowStockCount++;
+      }
+    }
+    return lowStockCount;
+  }
+
+  // Function to get no stock count
+  int getNoStockCount() {
+    int noStockCount = 0;
+    for (var product in itemInventory) {
+      if (product.quantity == 0) {
+        noStockCount++;
+      }
+    }
+    return noStockCount;
+  }
+
+  // Function to get total inventory value
+  double getTotalInventoryValue() {
+    double totalValue = 0.0;
+    for (var product in itemInventory) {
+      totalValue += product.price * product.quantity;
+    }
+    return totalValue;
   }
 
   @override
@@ -82,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  // BOXES AFTER INVENTORY SUMMARY
+                  // INVENTORY SUMMARY DASH
                   SizedBox(
                     child: Column(
                     children: [
@@ -115,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                                     FittedBox(
                                       fit: BoxFit.scaleDown,
                                       child: Text(
-                                      "145",
+                                      "${getTotalStock()}",
                                         style: TextStyle(
                                           fontSize: MediaQuery.of(context).size.height * 0.035
                                         ),
@@ -156,7 +197,7 @@ class _HomePageState extends State<HomePage> {
                                     FittedBox(
                                       fit: BoxFit.scaleDown,
                                       child: Text(
-                                      "8",
+                                      "${getLowStockCount()}",
                                         style: TextStyle(
                                           fontSize: MediaQuery.of(context).size.height * 0.035
                                         )
@@ -208,7 +249,7 @@ class _HomePageState extends State<HomePage> {
                                     FittedBox(
                                       fit: BoxFit.scaleDown,
                                       child: Text(
-                                      "2",
+                                      "${getNoStockCount()}",
                                         style: TextStyle(
                                           fontSize: MediaQuery.of(context).size.height * 0.035
                                         )
@@ -249,7 +290,7 @@ class _HomePageState extends State<HomePage> {
                                     FittedBox(
                                       fit: BoxFit.scaleDown,
                                       child: Text(
-                                      "₱250,255,35",
+                                      "₱${getTotalInventoryValue().toStringAsFixed(2)}",
                                         style: TextStyle(
                                           fontSize: MediaQuery.of(context).size.height * 0.035
                                         )

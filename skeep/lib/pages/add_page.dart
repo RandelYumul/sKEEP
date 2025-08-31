@@ -15,6 +15,7 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
+
   // Lists for products & transactions
   List<Product> products = [];
   List<Transaction> transactions = [];
@@ -148,6 +149,8 @@ class _AddPageState extends State<AddPage> {
 
       await addTransactionToList(tx);
 
+      loadData();
+
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Product updated and transaction recorded.')));
     } else {
       // create new product
@@ -174,9 +177,11 @@ class _AddPageState extends State<AddPage> {
 
       await addTransactionToList(tx);
 
+      loadData();
+
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Product added and transaction recorded.')));
     }
-
+    
     Navigator.pop(context);
   }
 

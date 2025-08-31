@@ -122,7 +122,7 @@ class _InventoryPageState extends State<InventoryPage> {
               onSelect: _onSelect,
             ),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: 6),
 
             // Inventory list
             Expanded(
@@ -130,14 +130,19 @@ class _InventoryPageState extends State<InventoryPage> {
                 itemCount: displayedItems.length,
                 itemBuilder: (context, index) {
                   final p = displayedItems[index];
-                  return ItemInventory(
-                    product: p,
-                    productName: p.name,
-                    supplier: p.supplier,
-                    price: p.price,
-                    unit: p.unit,
-                    stock: p.quantity,
-                    imagePath: p.imagePath,
+                  return Column(
+                    children: [
+                      ItemInventory(
+                        product: p,
+                        productName: p.name,
+                        supplier: p.supplier,
+                        price: p.price,
+                        unit: p.unit,
+                        stock: p.quantity,
+                        imagePath: p.imagePath,
+                      ),
+                      SizedBox(height: 16), // Spacing between items
+                    ],
                   );
                 },
               ),
