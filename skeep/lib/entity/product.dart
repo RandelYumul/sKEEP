@@ -6,6 +6,7 @@ class Product {
   int quantity;
   double price;
   String imagePath;
+  int quantityChange; // default to 0 if not provided
 
   Product({
     required this.id,
@@ -15,6 +16,7 @@ class Product {
     required this.quantity,
     required this.price,
     required this.imagePath,
+    this.quantityChange = 0,
   });
 
   Map<String, dynamic> toJson() => {
@@ -25,6 +27,7 @@ class Product {
         'quantity': quantity,
         'price': price,
         'imagePath': imagePath,
+        'quantityChange': quantityChange,
       };
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(

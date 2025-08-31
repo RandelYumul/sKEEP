@@ -68,6 +68,7 @@ class _AddPageState extends State<AddPage> {
   String savedunit = "";
   int savedquantity = 0;
   String? imagePath;
+  int savedQtyChange = 0;
 
   // Selected image file
   Future<void> _pickImage() async {
@@ -469,19 +470,75 @@ class _AddPageState extends State<AddPage> {
     );
   }
 
+  int _getQtyChange(String name, int quantity) {
+    bool productExists = _isExistingProduct(name);
+
+    if (productExists) {
+      // Product exists, calculate change using the first match
+      final List<Product> existingProducts = products.where((p) => p.name == savedproname).toList();
+      savedQtyChange = savedquantity - existingProducts.first.quantity;
+    } else {
+      // Product does not exist, use savedquantity
+      savedQtyChange = savedquantity;
+    }
+    return savedQtyChange;
+  }
+
+  bool _isExistingProduct(String name) {
+    bool productExists;
+    // Find all products with the same name
+    final List<Product> existingProducts = products.where((p) => p.name == name).toList();
+    if (existingProducts.isNotEmpty) {
+      productExists = true;
+    } else {
+      productExists = false;
+    }
+    return productExists;
+  }
+
   void _submit() {
     if (_formKey.currentState!.validate() && imagePath != null) {
       _formKey.currentState!.save();
-      final product = Product(
-        id: _uuid.v4(),
-        name: savedproname,
-        supplier: savedsupp,
-        unit: savedunit,
-        quantity: savedquantity,
-        price: savedprice,
-        imagePath: imagePath!,
-      );
-      addProduct(product);
+      bool productExists = _isExistingProduct(savedproname);
+
+      if(productExists) { //Overwrite product details
+        // Find product with the same name
+        final List<Product> existingProducts = products.where((p) => p.name == savedproname).toList();
+        final existingProduct = existingProducts.first;
+
+        // Remove old product
+        deleteProduct(products.indexOf(existingProduct));
+
+        // Create updated product with new details
+        final updatedProduct = Product(
+          id: existingProduct.id,
+          name: savedproname,
+          supplier: savedsupp,
+          unit: savedunit,
+          quantity: savedquantity,
+          price: savedprice,
+          imagePath: imagePath!,
+          quantityChange: _getQtyChange(savedproname, savedquantity),
+        );
+        addProduct(updatedProduct);
+      } else { // Add new product
+        final product = Product(
+          id: _uuid.v4(),
+          name: savedproname,
+          supplier: savedsupp,
+          unit: savedunit,
+          quantity: savedquantity,
+          price: savedprice,
+          imagePath: imagePath!,
+          quantityChange: savedquantity,  
+        );
+        addProduct(product);
+      }
+
+      // Record this transaction
+      
+      
+      
       Navigator.pop(context);
     }    
   } 

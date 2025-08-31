@@ -19,7 +19,7 @@ class _InventoryPageState extends State<InventoryPage> { // Show all items when 
   // Index for selected sort/filter option
   int selectedIndex = 0;
 
-  // List of inventory items (mock data)
+  // List of inventory items 
   List<Product> itemInventory = [];
 
   // Called when the widget is first created

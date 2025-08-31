@@ -4,6 +4,7 @@ import 'package:skeep/pages/inventory_page.dart';
 import 'pages/opening_page.dart';
 import 'pages/profile_page.dart';
 import 'entity/product.dart';
+import 'entity/transaction.dart';
 import 'database/storage.dart';
 
 void main() {
@@ -27,6 +28,7 @@ class MyApp extends StatefulWidget{
 class _MyAppState extends State<MyApp> {
   // List to hold all products in inventory
   List<Product> products = [];
+  List<Transaction> transactions = [];
 
   // Called when the widget is first created
   @override
@@ -37,8 +39,10 @@ class _MyAppState extends State<MyApp> {
 
   // Loads products from persistent storage (file/database)
   Future<void> loadData() async {
-    final list = await Storage.loadProducts(); // Get products from Storage
-    setState(() => products = list); // Update UI with loaded products
+    final listP = await Storage.loadProducts(); // Get products from Storage
+    final listT = await Storage.loadTransactions();
+    setState(() => products = listP);
+    setState(() => transactions = listT); // Update UI with loaded products
   }
 
   // Saves the current list of products to persistent storage

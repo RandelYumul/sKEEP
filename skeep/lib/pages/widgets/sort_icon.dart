@@ -15,8 +15,8 @@ class _SortWidgetState extends State<SortWidget> {
   void _toggleSort() {
     setState(() {
       isAscending = !isAscending;
+      widget.onSortChange(isAscending);
     });
-    widget.onSortChange(isAscending);
   }
 
   @override
@@ -28,11 +28,6 @@ class _SortWidgetState extends State<SortWidget> {
         duration: const Duration(milliseconds: 300),
         child: Icon(Icons.swap_vert, color: Colors.grey[700]),
       ),
-
-      // icon: Icon(
-      //   isAscending ? Icons.swap_vert : Icons.unfold_more,
-      //   color: Colors.grey[700],
-      // ),
       tooltip: isAscending ? "Sort Ascending" : "Sort Descending",
     );
   }
