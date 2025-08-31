@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:skeep/pages/widgets/bottom_nav.dart';
-import 'package:skeep/pages/widgets/item_inventory.dart';
-import 'package:skeep/pages/widgets/search_bar.dart';
-import 'package:skeep/pages/widgets/sort_filter_bar.dart';
+import 'package:skeep/pages/widgets/bottom_nav.dart'; // Custom bottom navigation bar widget
+import 'package:skeep/pages/widgets/item_inventory.dart'; // Widget to display inventory items
+import 'package:skeep/pages/widgets/search_bar.dart'; // Custom search bar widget
+import 'package:skeep/pages/widgets/sort_filter_bar.dart'; // Sort/filter bar widget
+import '../entity/product.dart';
+import '../database/storage.dart';
 
+// Main page for displaying inventory items
 class InventoryPage extends StatefulWidget {
   const InventoryPage({super.key});
 
@@ -11,66 +14,41 @@ class InventoryPage extends StatefulWidget {
   State<InventoryPage> createState() => _InventoryPageState();
 }
 
-class _InventoryPageState extends State<InventoryPage> {
+class _InventoryPageState extends State<InventoryPage> { // Show all items when opening the page
+
+  // Index for selected sort/filter option
   int selectedIndex = 0;
 
-  List<Map<String, dynamic>> itemInventory = [
-    {
-      'productName': 'Hard Copy A4 Bond Paper',
-      'supplier': 'Supplier A',
-      'price': 120.00,
-      'unit': 'box',
-      'stock': 50,
-    },
-    {
-      'productName': 'Pilot Permanent Marker',
-      'supplier': 'Supplier B',
-      'price': 80.00,
-      'unit': 'set',
-      'stock': 30,
-    },
-    {
-      'productName': 'Victory Yellow Pad Paper',
-      'supplier': 'Supplier C',
-      'price': 150.00,
-      'unit': 'pack',
-      'stock': 20,
-    },
-    {
-      'productName': 'Crayons 24pcs',
-      'supplier': 'Supplier D',
-      'price': 60.00,
-      'unit': 'box',
-      'stock': 100,
-    },
-    {
-      'productName': 'Mongol Pencil 12pcs',
-      'supplier': 'Supplier E',
-      'price': 40.00,
-      'unit': 'set',
-      'stock': 75,
-    },
-    {
-      'productName': 'Eraser Large Size',
-      'supplier': 'Supplier F',
-      'price': 15.00,
-      'unit': 'piece',
-      'stock': 200,
-    },
-  ];
+  // List of inventory items (mock data)
+  List<Product> itemInventory = [];
 
-  List<Map<String, dynamic>> displayedItems = [];
-  TextEditingController searchController = TextEditingController();
-
+  // Called when the widget is first created
   @override
   void initState() {
     super.initState();
-    displayedItems = List.from(itemInventory);
+    loadData(); // Load products from storage
+    displayedItems = List.from(itemInventory); // Initialize displayed items
   }
 
+  // Loads products from persistent storage (file/database)
+  Future<void> loadData() async {
+    final list = await Storage.loadProducts(); // Get products from Storage
+    setState(() => itemInventory = list); // Update UI with loaded products
+  }
+
+  //TO DO: Implement delete product function here and make it slidable
+
+
+  // List of items currently displayed (filtered/sorted)
+  List<Product> displayedItems = [];
+
+  // Controller for the search bar
+  TextEditingController searchController = TextEditingController();
+
+  // Filter items based on search query
   void _filterItems(String query) {
     final results = itemInventory.where((item) {
-      final name = item['productName'].toString().toLowerCase();
+      final name = item.name.toString().toLowerCase();
       return name.contains(query.toLowerCase());
     }).toList();
 
@@ -79,51 +57,59 @@ class _InventoryPageState extends State<InventoryPage> {
     });
   }
 
+  // Show all items (reset filter)
   void _showAll() {
     setState(() {
       displayedItems = List.from(itemInventory);
     });
   }
 
+  // Sort items alphabetically by product name
   void _sortAZ() {
     setState(() {
       displayedItems.sort(
-        (a, b) => a['productName'].compareTo(b['productName']),
+        (a, b) => a.name.compareTo(b.name),
       );
     });
   }
 
+  // Sort items by price (ascending)
   void _sortByPrice() {
     setState(() {
-      displayedItems.sort((a, b) => a['price'].compareTo(b['price']));
+      displayedItems.sort((a, b) => a.price.compareTo(b.price));
     });
   }
 
+  // Handle selection of sort/filter option
   void _onSelect(int index) {
     setState(() {
       selectedIndex = index;
 
       if (index == 0) {
-        _showAll();
+        _showAll(); // Show all items
       } else if (index == 1) {
-        _sortAZ();
+        _sortAZ(); // Sort A-Z
       } else if (index == 2) {
-        _sortByPrice();
+        _sortByPrice(); // Sort by price
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      _onSelect(selectedIndex);
+    });
+    // Main UI for inventory page
     return Scaffold(
       extendBody: true,
       body: Container(
-        color: const Color(0xFFC4C3F5),
+        color: const Color(0xFFC4C3F5), 
         child: Column(
           children: [
-            const SizedBox(height: 50),
+            const SizedBox(height: 50), // Top spacing
 
-            // Reusable Search Bar
+            // Search bar for filtering items
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: CustomSearchBar(
@@ -132,24 +118,26 @@ class _InventoryPageState extends State<InventoryPage> {
               ),
             ),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: 16), // Spacing
 
-            // Reusable Sort/Filter Bar
+            // Sort/filter bar for inventory
             SortFilterBar(selectedIndex: selectedIndex, onSelect: _onSelect),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: 16), // Spacing
 
-            // Item Inventory List
+            // List of inventory items
             Expanded(
               child: ListView.builder(
                 itemCount: displayedItems.length,
                 itemBuilder: (context, index) {
+                  final p = displayedItems[index];
                   return ItemInventory(
-                    productName: displayedItems[index]['productName'],
-                    supplier: displayedItems[index]['supplier'],
-                    price: displayedItems[index]['price'],
-                    unit: displayedItems[index]['unit'],
-                    stock: displayedItems[index]['stock'],
+                    productName: p.name,
+                    supplier: p.supplier,
+                    price: p.price,
+                    unit: p.unit,
+                    stock: p.quantity,
+                    imagePath: p.imagePath,
                   );
                 },
               ),
@@ -158,8 +146,9 @@ class _InventoryPageState extends State<InventoryPage> {
         ),
       ),
 
-      // Bottom Navigation Bar
+      // Bottom navigation bar for app navigation
       bottomNavigationBar: const CustomBottomNavBar(selectedIndex: 1),
     );
+    
   }
 }

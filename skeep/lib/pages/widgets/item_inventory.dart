@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skeep/pages/widgets/item_details.dart';
+import 'dart:io';
 
 class ItemInventory extends StatelessWidget {
   const ItemInventory({
@@ -9,6 +10,7 @@ class ItemInventory extends StatelessWidget {
     this.price,
     this.unit,
     this.stock,
+    this.imagePath,
   });
 
   final String? productName;
@@ -16,9 +18,30 @@ class ItemInventory extends StatelessWidget {
   final double? price;
   final String? unit;
   final int? stock;
+  final String? imagePath;
 
   @override
   Widget build(BuildContext context) {
+    Widget imageWidget;
+    if (imagePath != null && imagePath!.isNotEmpty) {
+      if (imagePath!.startsWith('lib/assets/')) {
+        imageWidget = Image.asset(
+          imagePath!,
+          fit: BoxFit.cover,
+        );
+      } else {
+        imageWidget = Image.file(
+          File(imagePath!),
+          fit: BoxFit.cover,
+        );
+      }
+    } else {
+      imageWidget = Image.asset(
+        'lib/assets/image_placeholder.png',
+        fit: BoxFit.cover,
+      );
+    }
+
     return Padding(
       padding: EdgeInsets.only(left: 16, right: 16, top: 16),
       child: Center(
@@ -44,17 +67,13 @@ class ItemInventory extends StatelessWidget {
                       children: [
                         // Product Image
                         Container(
-                          width: 80, // Reduced width
-                          height: 80, // Reduced height
+                          width: 80, 
+                          height: 80, 
                           decoration: BoxDecoration(
                             color: Colors.grey[300],
                             borderRadius: BorderRadius.circular(8.0),
                           ),
-                          child: Icon(
-                            Icons.image,
-                            size: 30, // Reduced icon size
-                            color: Colors.grey[600],
-                          ),
+                          child: imageWidget,
                         ),
 
                         SizedBox(width: 12), // Add spacing
