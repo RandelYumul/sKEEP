@@ -4,6 +4,7 @@ import 'widgets/bottom_nav.dart';
 import '../entity/transaction.dart';
 import '../database/storage.dart';
 import '../entity/product.dart';
+import 'package:intl/intl.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -75,6 +76,11 @@ class _HomePageState extends State<HomePage> {
       totalValue += product.price * product.quantity;
     }
     return totalValue;
+  }
+
+  String getFormattedTotalInventoryValue() {
+    final formatter = NumberFormat("#,##0.00"); // comma + 2 decimals
+    return formatter.format(getTotalInventoryValue());
   }
 
   @override
@@ -290,7 +296,7 @@ class _HomePageState extends State<HomePage> {
                                     FittedBox(
                                       fit: BoxFit.scaleDown,
                                       child: Text(
-                                      "₱${getTotalInventoryValue().toStringAsFixed(2)}",
+                                      "₱${getFormattedTotalInventoryValue()}",
                                         style: TextStyle(
                                           fontSize: MediaQuery.of(context).size.height * 0.035
                                         )
