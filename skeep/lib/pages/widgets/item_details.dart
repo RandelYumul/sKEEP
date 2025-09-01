@@ -153,14 +153,14 @@ class ItemDetails extends StatelessWidget {
                         const SizedBox(height: 10),
                         // Product Image
                         Center(
-                          child: Container(
-                            height: 150,
-                            width: 150,
-                            decoration: BoxDecoration(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Container(
+                              height: 150,
+                              width: 150,
                               color: Colors.grey[300],
-                              borderRadius: BorderRadius.circular(8),
+                              child: imageWidget,
                             ),
-                            child: imageWidget,
                           ),
                         ),
 
