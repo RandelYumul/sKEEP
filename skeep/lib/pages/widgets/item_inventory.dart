@@ -4,6 +4,7 @@ import 'dart:io';
 import '../../entity/product.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../database/storage.dart';
+import '../../entity/transaction.dart';
 
 class ItemInventory extends StatefulWidget {
   const ItemInventory({
@@ -32,6 +33,7 @@ class ItemInventory extends StatefulWidget {
 class _ItemInventoryState extends State<ItemInventory> {
   // Lists for products & transactions
   List<Product> products = [];
+  List<Transaction> transactions = [];
 
   @override
   void initState() {
@@ -46,29 +48,45 @@ class _ItemInventoryState extends State<ItemInventory> {
 
   // Deletes a product by name and updates storage
   Future<void> deleteProductByName(String name) async {
+    Product product = products.firstWhere((p) => p.name == name);
+    Transaction transaction = Transaction(
+      id: _nextTransactionId(),
+      name: product.name,
+      supplier: product.supplier,
+      quantityChange: -product.quantity, 
+    );
+
+    transactions.add(transaction);
     products.removeWhere((p) => p.name == name);
+
     await saveProducts();
+    await saveTransactions();
     setState(() {
       loadData();
     }); // Refresh UI
   }
 
+  // Generates the next transaction ID based on the current list length
+  String _nextTransactionId() {
+    final next = transactions.length + 1;
+    return '$next';
+  }
+
+  // Saves the current products to storage
   Future<void> saveProducts() async => await Storage.saveProducts(products);
+
+  // Saves the current transactions to storage
+  Future<void> saveTransactions() async =>
+      await Storage.saveTransactions(transactions);
 
   @override
   Widget build(BuildContext context) {
     Widget imageWidget;
     if (widget.imagePath != null && widget.imagePath!.isNotEmpty) {
       if (widget.imagePath!.startsWith('lib/assets/')) {
-        imageWidget = Image.asset(
-          widget.imagePath!,
-          fit: BoxFit.cover,
-        );
+        imageWidget = Image.asset(widget.imagePath!, fit: BoxFit.cover);
       } else {
-        imageWidget = Image.file(
-          File(widget.imagePath!),
-          fit: BoxFit.cover,
-        );
+        imageWidget = Image.file(File(widget.imagePath!), fit: BoxFit.cover);
       }
     } else {
       imageWidget = Image.asset(
@@ -83,7 +101,7 @@ class _ItemInventoryState extends State<ItemInventory> {
         extentRatio: 0.30,
         children: [
           SlidableAction(
-            onPressed: (context) async{
+            onPressed: (context) async {
               await deleteProductByName(widget.productName!);
               loadData();
             },
@@ -106,7 +124,7 @@ class _ItemInventoryState extends State<ItemInventory> {
               color: Colors.white,
               borderRadius: BorderRadius.circular(10.0),
             ),
-          
+
             // Content
             child: Padding(
               padding: EdgeInsets.all(20.0),
@@ -115,20 +133,20 @@ class _ItemInventoryState extends State<ItemInventory> {
                 children: [
                   Expanded(
                     child: ConstrainedBox(
-                      constraints: BoxConstraints(maxWidth: 500), 
+                      constraints: BoxConstraints(maxWidth: 500),
                       child: Row(
                         children: [
                           // Product Image
                           Container(
-                            width: 80, 
-                            height: 80, 
+                            width: 80,
+                            height: 80,
                             decoration: BoxDecoration(
                               color: Colors.grey[300],
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             child: imageWidget,
                           ),
-                                      
+
                           SizedBox(width: 12), // Add spacing
                           //Product Details
                           Expanded(
@@ -154,7 +172,7 @@ class _ItemInventoryState extends State<ItemInventory> {
                                     color: Color(0xFF939393),
                                   ),
                                 ),
-                                      
+
                                 // Price and Stock
                                 Row(
                                   mainAxisAlignment:
@@ -182,7 +200,7 @@ class _ItemInventoryState extends State<ItemInventory> {
                                     ),
                                   ],
                                 ),
-                                      
+
                                 SizedBox(height: 6), // Reduced spacing
                                 //Button
                                 SizedBox(

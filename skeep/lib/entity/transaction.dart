@@ -2,7 +2,7 @@ class Transaction {
   String id;
   String name;
   String supplier;
-  int quantityChange; // default to 0 if not provided
+  int quantityChange; 
 
   Transaction({
     required this.id,
