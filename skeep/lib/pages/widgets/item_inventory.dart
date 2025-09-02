@@ -43,7 +43,9 @@ class _ItemInventoryState extends State<ItemInventory> {
 
   Future<void> loadData() async {
     final list = await Storage.loadProducts();
+    final listT = await Storage.loadTransactions();
     products = list;
+    transactions = listT;
   }
 
   // Deletes a product by name and updates storage
